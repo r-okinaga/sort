@@ -1,27 +1,28 @@
 class Array
     def quick
-        if self.length <= 1
-            return self
+        self._quick(0, self.size - 1)
+    end
+
+    def _quick(first, last)
+        from = first
+        to = last
+        pivot = self[(to - from) / 2].to_i
+        p pivot
+        while from < to
+            from += 1 while self[from].to_i <= pivot
+            to -= 1 while pivot <= self[to].to_i
+            tmp = self[from]
+            self[from] = self[to]
+            self[to] = tmp
         end
-        l = Array.new
-        r = Array.new
-        pivot = self[0]
-        size = self.size
-        for i in 1..size - 1
-            if pivot.to_i <= self[i].to_i
-                r << self[i]
-            else
-                l << self[i]
-            end
-        end
-        l = l.quick
-        r = r.quick
-        return l + [pivot] + r
+        self
     end
 end
 
-num = 10
-a = []
-num.times {a << rand(num) }
+#num = 10
+#a = []
+#num.times {a << rand(num) }
 
+
+a = [2,1,4,7,5,11,7,9,3]
 p a.quick
