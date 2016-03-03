@@ -1,11 +1,9 @@
 class Array
     def quick
-        @stack = 0
         self._quick(0, self.size - 1)
     end
 
     def _quick(first, last)
-        p @stack += 1
         return if last - first < 2
         from = first
         to = last
@@ -18,9 +16,11 @@ class Array
             self[to] = tmp
             break if to - from <= 1
         end
-        self._quick(first, from)
-        self._quick(to, last)
-        @stack -= 1
+        if (from - first) < (last - to)
+            self._quick(first, from)
+        else
+            self._quick(to, last)
+        end
         self
     end
 end
@@ -29,8 +29,5 @@ end
 #a = []
 #num.times {a << rand(num) }
 
-a = []
-(1..100).each do |n|
-    a << 100 - n
-end
+a = [3,8,6,7,55,1,2]
 p a.quick
