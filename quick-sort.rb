@@ -4,22 +4,25 @@ class Array
     end
 
     def _quick(first, last)
-        return if last - first < 2
-        from = first
-        to = last
-        pivot = self[(to + from) / 2].to_i
-        while from < to
-            from += 1 while self[from].to_i < pivot
-            to -= 1 while pivot < self[to].to_i
-            tmp = self[from]
-            self[from] = self[to]
-            self[to] = tmp
-            break if to - from <= 1
-        end
-        if (from - first) < (last - to)
-            self._quick(first, from)
-        else
-            self._quick(to, last)
+        while 1 < last - first
+            from = first
+            to = last
+            pivot = self[(to + from) / 2].to_i
+            while from < to
+                from += 1 while self[from].to_i < pivot
+                to -= 1 while pivot < self[to].to_i
+                tmp = self[from]
+                self[from] = self[to]
+                self[to] = tmp
+                break if to - from <= 1
+            end
+            if (from - first) < (last - to)
+                self._quick(first, from)
+                first = to
+            else
+                self._quick(to, last)
+                last = from
+            end
         end
         self
     end
